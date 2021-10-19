@@ -60,3 +60,19 @@ exports.listVisitorToday = async (req, res) => {
 		console.log(error);
 	}
 };
+
+exports.findVisitor = async (req, res) => {
+	try {
+		const name = req.query.name;
+
+		const result = await models.visitor.findAll({
+			where: {
+				name: name,
+			},
+		});
+
+		return response.ok(200, result, res);
+	} catch (error) {
+		console.log(error);
+	}
+};

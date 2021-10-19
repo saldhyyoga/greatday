@@ -42,3 +42,21 @@ exports.visitorToday = async (req, res) => {
 		console.log(error.message);
 	}
 };
+
+exports.listVisitorToday = async (req, res) => {
+	try {
+		const now = dayjs();
+		console.log(now.format("YYYY-MM-DD 01:00:00"));
+		const result = await models.visitor.findAll({
+			where: {
+				createdAt: {
+					[Op.gte]: now.format("YYYY-MM-DD 01:00:00"),
+				},
+			},
+		});
+
+		return response.ok(200, result, res);
+	} catch (error) {
+		console.log(error);
+	}
+};
